@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create a quote!</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="main">
+      <div>
+        <h1>
+          Go ahead and create a quote... There's probably better ones already
+          sumbitted anyways
+        </h1>
+        <h2></h2>
+        <form>
+          <input
+            class="form-control"
+            placeholder="Quote"
+            type="text"
+            name="quote"
+            id="quote"
+            required
+          />
+          <input
+            class="form-control"
+            placeholder="Name"
+            type="text"
+            name="name"
+            id="name"
+            required
+          />
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const form = document.querySelector("form");
+      const button = document.querySelector("button");
+      const quote = document.getElementById("quote");
+      const name = document.getElementById("name");
+      const h2 = document.querySelector("h2");
+      form.onsubmit = async function (e) {
+        e.preventDefault();
+        button.innerText = "Sending...";
+        await fetch(`${window.location.origin}/api/quote`, {
+          method: "post",
+          body: JSON.stringify({
+            quote: quote.value,
+            name: name.value,
+          }),
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        h2.innerText = "👌 k thnx";
+        setTimeout(() => {
+          h2.innerText = "";
+        }, 2000);
+        button.innerText = "Submit";
+        form.reset();
+      };
+    </script>
+
+    <style>
+      .main {
+        display: grid;
+        place-items: center;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      form {
+        display: flex;
+        width: 700px;
+      }
+
+      input {
+        margin-right: 1em;
+      }
+
+      h1,
+      h2 {
+        margin-bottom: 2em;
+        width: 700px;
+      }
+    </style>
+  </body>
+</html>
