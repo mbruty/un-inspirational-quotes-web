@@ -9,5 +9,8 @@
     "express": "^4.17.1",
     "mongoose": "^6.0.5",
     "morgan": "^1.10.0"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }
