@@ -26,7 +26,7 @@ const app = express();
   app.get("/api/quote", async (req, res) => {
     const recieved = await Quote.aggregate([
       {
-        $sample: { size: 20 },
+        $sample: { size: 5 },
       },
     ]);
     const quotes = recieved.map((item) => {
