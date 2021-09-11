@@ -26,6 +26,9 @@ const app = express();
   app.get("/api/quote", async (req, res) => {
     const recieved = await Quote.aggregate([
       {
+        $match: { reviewed: true },
+      },
+      {
         $sample: { size: 5 },
       },
     ]);
